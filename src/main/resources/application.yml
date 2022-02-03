@@ -1,0 +1,47 @@
+#Application
+
+application-name: @artifactId@
+application-description: @project.description@
+application-version: @project.version@
+contact-name: Julián Camilo Vega Rocha
+contact-email: ingjulianvega@gmail.com
+contact-url: https://twitter.com/ingjulianvega
+
+spring:
+  application:
+    name: @artifactId@
+  jpa:
+    show-sql: true
+  #Base de datos local H2 Embebida
+  h2:
+    console:
+      #enabled: true only needed if dev tools dependency is not present
+      settings:
+        web-allow-others: true
+  datasource:
+    url: jdbc:h2:mem:testdb;MODE=MYSQL
+  #Cache
+  cache:
+    jcache:
+      config: classpath:ehcache.xml
+  #Zipkin
+  zipkin:
+    baseUrl: http://localhost:9411/
+#General configuration
+server:
+  port: 8082
+  servlet:
+    context-path: /happy-animals/v1/owner
+#Logging
+#logging:
+#  level:
+#    root: DEBUG
+#Exceptions
+pet:
+  api: @artifactId@
+#Eureka
+eureka:
+  client:
+    service-url:
+      defaultZone: http://netflix:eureka@localhost:8761/eureka
+
