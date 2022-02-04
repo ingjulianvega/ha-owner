@@ -23,6 +23,7 @@ public class OwnerEntity extends BaseEntity{
     @Column(length = 36, columnDefinition = "varchar(36)", updatable = false, nullable = false)
     private UUID personId;
 
-    @Column
-    private String petId;
+    @Type(type = "org.hibernate.type.UUIDCharType")
+    @Column(length = 36, columnDefinition = "varchar(36)", updatable = false, nullable = false)
+    private UUID petId;
 }

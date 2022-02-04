@@ -2,6 +2,7 @@ package ingjulianvega.ximic.haowner.services;
 
 import ingjulianvega.ximic.haowner.web.model.Owner;
 import ingjulianvega.ximic.haowner.web.model.OwnerDto;
+import ingjulianvega.ximic.haowner.web.model.OwnerExtendedDto;
 import ingjulianvega.ximic.haowner.web.model.OwnerList;
 
 import java.util.UUID;
@@ -9,7 +10,7 @@ import java.util.UUID;
 public interface OwnerService {
     OwnerList get();
 
-    OwnerDto getById(UUID id);
+    OwnerExtendedDto getById(UUID id);
 
     void create(Owner owner);
 

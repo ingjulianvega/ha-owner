@@ -4,6 +4,7 @@ package ingjulianvega.ximic.haowner.web.controller;
 import ingjulianvega.ximic.haowner.web.model.ApiError;
 import ingjulianvega.ximic.haowner.web.model.Owner;
 import ingjulianvega.ximic.haowner.web.model.OwnerDto;
+import ingjulianvega.ximic.haowner.web.model.OwnerExtendedDto;
 import ingjulianvega.ximic.haowner.web.model.OwnerList;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -47,7 +48,7 @@ public interface OwnerI {
     @RequestMapping(value = "/{id}",
             produces = {"application/json"},
             method = RequestMethod.GET)
-    ResponseEntity<OwnerDto> getById(@Parameter(in = ParameterIn.PATH, description = "The owner id", required = true, schema = @Schema()) @NotNull @PathVariable("id") UUID id);
+    ResponseEntity<OwnerExtendedDto> getById(@Parameter(in = ParameterIn.PATH, description = "The owner id", required = true, schema = @Schema()) @NotNull @PathVariable("id") UUID id);
 
     @Operation(summary = "Endpoint to create a owner", description = "Creates a new owner", tags = {"owner"})
     @ApiResponses(value = {
