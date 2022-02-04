@@ -3,7 +3,7 @@
 
 ### OpenAPI
 
-http://localhost:808/happy-animals/v1/owner/swagger-ui.html
+http://localhost:8082/happy-animals/v1/owner/swagger-ui.html
 
 ### H2
 

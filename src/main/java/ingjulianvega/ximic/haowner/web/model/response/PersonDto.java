@@ -1,4 +1,4 @@
-package ingjulianvega.ximic.haowner.web.model;
+package ingjulianvega.ximic.haowner.web.model.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,15 +14,15 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class OwnerDto implements Serializable {
-    static final long serialVersionUID = 3288070695886353002L;
+public class PersonDto implements Serializable {
+    static final long serialVersionUID = -6490482264970539957L;
 
     @Null
     private UUID id;
     @NotBlank
-    private UUID personId;
+    private String name;
     @NotBlank
-    private String petId;
+    private String documentNumber;
 
 }
 

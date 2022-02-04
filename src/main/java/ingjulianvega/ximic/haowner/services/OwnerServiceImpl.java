@@ -5,22 +5,34 @@ import ingjulianvega.ximic.haowner.configuration.ErrorCodeMessages;
 import ingjulianvega.ximic.haowner.domain.OwnerEntity;
 import ingjulianvega.ximic.haowner.domain.repositories.OwnerRepository;
 import ingjulianvega.ximic.haowner.exception.OwnerException;
+import ingjulianvega.ximic.haowner.services.feign.PersonServiceFeignClient;
 import ingjulianvega.ximic.haowner.web.Mappers.OwnerMapper;
 import ingjulianvega.ximic.haowner.web.model.Owner;
 import ingjulianvega.ximic.haowner.web.model.OwnerDto;
 import ingjulianvega.ximic.haowner.web.model.OwnerList;
+import ingjulianvega.ximic.haowner.web.model.response.PersonDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @RequiredArgsConstructor
 @Slf4j
 @Service
 public class OwnerServiceImpl implements OwnerService {
+
+    //Feing constants
+
+    //Person
+    public static final String PERSON_BY_ID_PATH = "/happy-animals/v1/person/{id}";
+
+    //Feign
+    private final PersonServiceFeignClient personServiceFeignClient;
 
     private final OwnerRepository ownerRepository;
     private final OwnerMapper ownerMapper;
@@ -40,15 +52,21 @@ public class OwnerServiceImpl implements OwnerService {
     @Override
     public OwnerDto getById(UUID id) {
         log.debug("getById()...");
-        return ownerMapper.personEntityToPersonDto(
-                ownerRepository.findById(id).orElseThrow(() -> OwnerException
-                        .builder()
-                        .httpStatus(HttpStatus.BAD_REQUEST)
-                        .apiCode(ErrorCodeMessages.OWNER_NOT_FOUND_API_CODE)
-                        .error(ErrorCodeMessages.OWNER_NOT_FOUND_ERROR)
-                        .message(ErrorCodeMessages.OWNER_NOT_FOUND_MESSAGE)
-                        .solution(ErrorCodeMessages.OWNER_NOT_FOUND_SOLUTION)
-                        .build()));
+        OwnerDto ownerDto = ownerMapper.personEntityToPersonDto(ownerRepository.findById(id).orElseThrow(() -> OwnerException
+                .builder()
+                .httpStatus(HttpStatus.BAD_REQUEST)
+                .apiCode(ErrorCodeMessages.OWNER_NOT_FOUND_API_CODE)
+                .error(ErrorCodeMessages.OWNER_NOT_FOUND_ERROR)
+                .message(ErrorCodeMessages.OWNER_NOT_FOUND_MESSAGE)
+                .solution(ErrorCodeMessages.OWNER_NOT_FOUND_SOLUTION)
+                .build()));
+
+        //Consulta la persona
+        ResponseEntity<PersonDto>  personDto = personServiceFeignClient.getById(ownerDto.getPersonId());
+
+        System.out.println(personDto.getBody());
+
+        return ownerDto;
     }
 
     @Override
@@ -59,7 +77,7 @@ public class OwnerServiceImpl implements OwnerService {
                         ownerMapper.personDtoToPersonEntity(
                                 OwnerDto
                                         .builder()
-                                        .personId(owner.getPersonId())
+                                        //.personId(owner.getPersonId()) //TODO fix because of feign change
                                         .petId(owner.getPetId()).
                                         build())));
     }
@@ -75,7 +93,7 @@ public class OwnerServiceImpl implements OwnerService {
                 .message(ErrorCodeMessages.OWNER_NOT_FOUND_MESSAGE)
                 .solution(ErrorCodeMessages.OWNER_NOT_FOUND_SOLUTION)
                 .build());
-        ownerEntity.setPersonId(owner.getPersonId());
+        //ownerEntity.setPersonId(owner.getPersonId()); //TODO fix because of feign change
         ownerEntity.setPetId(owner.getPetId());
 
         ownerRepository.save(ownerEntity);
