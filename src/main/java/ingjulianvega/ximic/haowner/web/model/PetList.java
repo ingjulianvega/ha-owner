@@ -17,7 +17,7 @@ public class PetList implements Serializable {
 
   static final long serialVersionUID = 7561423550901684695L;
 
-  public ArrayList<PetDto> personList;
+  public ArrayList<PetDto> petList;
 
 }
 

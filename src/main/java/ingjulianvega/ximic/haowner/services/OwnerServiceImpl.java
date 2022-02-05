@@ -24,6 +24,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -32,15 +33,14 @@ import java.util.UUID;
 @Service
 public class OwnerServiceImpl implements OwnerService {
 
-    //Feing constants
+    //***Feing constants***
 
     //Person
     public static final String PERSON_BY_ID_PATH = "/happy-animals/v1/person/{id}";
-
     //Pet
     public static final String PET_BY_ID_PATH = "/happy-animals/v1/pet/{id}";
 
-    //Feign
+    //Feign components
     private final PersonServiceFeignClient personServiceFeignClient;
     private final PetServiceFeignClient petServiceFeignClient;
 
@@ -119,12 +119,13 @@ public class OwnerServiceImpl implements OwnerService {
     @Override
     public PetList getPetsByPersonId(UUID personId) {
         //Buscar los ids de las mascotas por personId
-        List<OwnerEntity> petList = ownerRepository.findAllByPersonId(personId);
+        List<OwnerEntity> ownerList = ownerRepository.findAllByPersonId(personId);
         //Buscar los datos de cada una de las mascotas
-        petList.parallelStream().forEach(pet -> {
+        ArrayList<PetDto> petArray = new ArrayList<>();
+        ownerList.parallelStream().forEach(pet -> {
             ResponseEntity<PetDto> petDto = petServiceFeignClient.getById(pet.getPetId());
-
+            petArray.add(petDto.getBody());
         });
-        return null;
+        return PetList.builder().petList(petArray).build();
     }
 }
