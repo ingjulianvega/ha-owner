@@ -5,7 +5,9 @@ import ingjulianvega.ximic.haowner.web.model.ApiError;
 import ingjulianvega.ximic.haowner.web.model.Owner;
 import ingjulianvega.ximic.haowner.web.model.OwnerDto;
 import ingjulianvega.ximic.haowner.web.model.OwnerExtendedDto;
+import ingjulianvega.ximic.haowner.web.model.OwnerExtendedList;
 import ingjulianvega.ximic.haowner.web.model.OwnerList;
+import ingjulianvega.ximic.haowner.web.model.PetList;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -49,6 +51,19 @@ public interface OwnerI {
             produces = {"application/json"},
             method = RequestMethod.GET)
     ResponseEntity<OwnerExtendedDto> getById(@Parameter(in = ParameterIn.PATH, description = "The owner id", required = true, schema = @Schema()) @NotNull @PathVariable("id") UUID id);
+
+    @Operation(summary = "Endpoint to get a list of pets given the personId", description = "Returns a list of pets", tags = {"pets"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "The operation was successful.", content = @Content(schema = @Schema(implementation = OwnerDto.class))),
+
+            @ApiResponse(responseCode = "400", description = "400 - business error", content = @Content(schema = @Schema(implementation = ApiError.class))),
+
+            @ApiResponse(responseCode = "500", description = "500 - server error", content = @Content(schema = @Schema(implementation = ApiError.class)))})
+    @RequestMapping(value = "/pet/{personId}",
+            produces = {"application/json"},
+            method = RequestMethod.GET)
+    ResponseEntity<PetList> getPetsByPersonId(@Parameter(in = ParameterIn.PATH, description = "The owner id", required = true, schema = @Schema()) @NotNull @PathVariable("personId") UUID personId);
+
 
     @Operation(summary = "Endpoint to create a owner", description = "Creates a new owner", tags = {"owner"})
     @ApiResponses(value = {

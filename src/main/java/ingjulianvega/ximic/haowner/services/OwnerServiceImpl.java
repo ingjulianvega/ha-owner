@@ -12,7 +12,9 @@ import ingjulianvega.ximic.haowner.web.Mappers.OwnerMapper;
 import ingjulianvega.ximic.haowner.web.model.Owner;
 import ingjulianvega.ximic.haowner.web.model.OwnerDto;
 import ingjulianvega.ximic.haowner.web.model.OwnerExtendedDto;
+import ingjulianvega.ximic.haowner.web.model.OwnerExtendedList;
 import ingjulianvega.ximic.haowner.web.model.OwnerList;
+import ingjulianvega.ximic.haowner.web.model.PetList;
 import ingjulianvega.ximic.haowner.web.model.response.PersonDto;
 import ingjulianvega.ximic.haowner.web.model.response.PetDto;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +24,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -72,9 +75,6 @@ public class OwnerServiceImpl implements OwnerService {
         ResponseEntity<PersonDto>  personDto = personServiceFeignClient.getById(ownerDto.getPersonId());
         ResponseEntity<PetDto> petDto = petServiceFeignClient.getById(ownerDto.getPetId());
 
-        System.out.println(personDto.getBody());
-        System.out.println(petDto.getBody());
-
         OwnerExtendedDto ownerExtendedDto = ownerExtendedMapper.toOwnerExtendedDto(ownerDto,personDto.getBody(),petDto.getBody());
 
         return ownerExtendedDto;
@@ -114,5 +114,17 @@ public class OwnerServiceImpl implements OwnerService {
     public void deleteById(UUID id) {
         log.debug("deleteById...");
         ownerRepository.deleteById(id);
+    }
+
+    @Override
+    public PetList getPetsByPersonId(UUID personId) {
+        //Buscar los ids de las mascotas por personId
+        List<OwnerEntity> petList = ownerRepository.findAllByPersonId(personId);
+        //Buscar los datos de cada una de las mascotas
+        petList.parallelStream().forEach(pet -> {
+            ResponseEntity<PetDto> petDto = petServiceFeignClient.getById(pet.getPetId());
+
+        });
+        return null;
     }
 }

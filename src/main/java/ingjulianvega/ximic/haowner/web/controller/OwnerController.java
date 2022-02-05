@@ -4,7 +4,9 @@ import ingjulianvega.ximic.haowner.services.OwnerService;
 import ingjulianvega.ximic.haowner.web.model.Owner;
 import ingjulianvega.ximic.haowner.web.model.OwnerDto;
 import ingjulianvega.ximic.haowner.web.model.OwnerExtendedDto;
+import ingjulianvega.ximic.haowner.web.model.OwnerExtendedList;
 import ingjulianvega.ximic.haowner.web.model.OwnerList;
+import ingjulianvega.ximic.haowner.web.model.PetList;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +29,11 @@ public class OwnerController implements OwnerI {
     @Override
     public ResponseEntity<OwnerExtendedDto> getById(@NotNull UUID id) {
         return new ResponseEntity<>(ownerService.getById(id), HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<PetList> getPetsByPersonId(@NotNull UUID personId) {
+        return new ResponseEntity<>(ownerService.getPetsByPersonId(personId), HttpStatus.OK);
     }
 
     @Override

@@ -9,4 +9,5 @@ import java.util.UUID;
 
 public interface OwnerRepository extends JpaRepository<OwnerEntity, UUID>, JpaSpecificationExecutor<OwnerEntity> {
     List<OwnerEntity> findAllByOrderByPersonId();
+    List<OwnerEntity> findAllByPersonId(UUID personId);
 }

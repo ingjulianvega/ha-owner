@@ -9,13 +9,16 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Null;
+import java.io.Serializable;
 import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class OwnerExtendedDto {
+public class OwnerExtendedDto implements Serializable {
+
+    static final long serialVersionUID = -4283475280502062886L;
 
     @Null
     private UUID id;
