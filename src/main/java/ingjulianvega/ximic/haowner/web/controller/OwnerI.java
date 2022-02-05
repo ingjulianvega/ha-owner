@@ -5,7 +5,6 @@ import ingjulianvega.ximic.haowner.web.model.ApiError;
 import ingjulianvega.ximic.haowner.web.model.Owner;
 import ingjulianvega.ximic.haowner.web.model.OwnerDto;
 import ingjulianvega.ximic.haowner.web.model.OwnerExtendedDto;
-import ingjulianvega.ximic.haowner.web.model.OwnerExtendedList;
 import ingjulianvega.ximic.haowner.web.model.OwnerList;
 import ingjulianvega.ximic.haowner.web.model.PetList;
 import io.swagger.v3.oas.annotations.Operation;

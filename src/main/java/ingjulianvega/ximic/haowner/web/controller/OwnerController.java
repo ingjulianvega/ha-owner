@@ -2,9 +2,7 @@ package ingjulianvega.ximic.haowner.web.controller;
 
 import ingjulianvega.ximic.haowner.services.OwnerService;
 import ingjulianvega.ximic.haowner.web.model.Owner;
-import ingjulianvega.ximic.haowner.web.model.OwnerDto;
 import ingjulianvega.ximic.haowner.web.model.OwnerExtendedDto;
-import ingjulianvega.ximic.haowner.web.model.OwnerExtendedList;
 import ingjulianvega.ximic.haowner.web.model.OwnerList;
 import ingjulianvega.ximic.haowner.web.model.PetList;
 import lombok.RequiredArgsConstructor;

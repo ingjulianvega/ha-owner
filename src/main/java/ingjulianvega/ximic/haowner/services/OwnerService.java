@@ -2,7 +2,6 @@ package ingjulianvega.ximic.haowner.services;
 
 import ingjulianvega.ximic.haowner.web.model.Owner;
 import ingjulianvega.ximic.haowner.web.model.OwnerExtendedDto;
-import ingjulianvega.ximic.haowner.web.model.OwnerExtendedList;
 import ingjulianvega.ximic.haowner.web.model.OwnerList;
 import ingjulianvega.ximic.haowner.web.model.PetList;
 

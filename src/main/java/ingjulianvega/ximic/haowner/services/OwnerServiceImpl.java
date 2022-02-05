@@ -12,7 +12,6 @@ import ingjulianvega.ximic.haowner.web.Mappers.OwnerMapper;
 import ingjulianvega.ximic.haowner.web.model.Owner;
 import ingjulianvega.ximic.haowner.web.model.OwnerDto;
 import ingjulianvega.ximic.haowner.web.model.OwnerExtendedDto;
-import ingjulianvega.ximic.haowner.web.model.OwnerExtendedList;
 import ingjulianvega.ximic.haowner.web.model.OwnerList;
 import ingjulianvega.ximic.haowner.web.model.PetList;
 import ingjulianvega.ximic.haowner.web.model.response.PersonDto;
@@ -88,8 +87,8 @@ public class OwnerServiceImpl implements OwnerService {
                         ownerMapper.ownerDtoToOwnerEntity(
                                 OwnerDto
                                         .builder()
-                                        //.personId(owner.getPersonId()) //TODO fix because of feign change
-                                        //.petId(owner.getPetId())//TODO fix because of feign change
+                                        .personId(UUID.fromString(owner.getPersonId()))
+                                        .petId(UUID.fromString(owner.getPetId()))
                                         .build())));
     }
 
@@ -104,8 +103,8 @@ public class OwnerServiceImpl implements OwnerService {
                 .message(ErrorCodeMessages.OWNER_NOT_FOUND_MESSAGE)
                 .solution(ErrorCodeMessages.OWNER_NOT_FOUND_SOLUTION)
                 .build());
-        //ownerEntity.setPersonId(owner.getPersonId()); //TODO fix because of feign change
-        //ownerEntity.setPetId(owner.getPetId()); //TODO fix because of feign change
+        ownerEntity.setPersonId(UUID.fromString(owner.getPersonId()));
+        ownerEntity.setPetId(UUID.fromString(owner.getPetId()));
 
         ownerRepository.save(ownerEntity);
     }
