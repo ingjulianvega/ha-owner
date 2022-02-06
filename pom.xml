@@ -17,7 +17,6 @@
 		<license>
 			<name>GNU General Public License v3.0</name>
 			<url>https://www.gnu.org/licenses/gpl.txt</url>
-
 		</license>
 	</licenses>
 
@@ -46,6 +45,8 @@
 		<docker.image.prefix>ingjulianvega</docker.image.prefix>
 		<!--Set to name of project-->
 		<docker.image.name>${project.artifactId}</docker.image.name>
+		<!--For gateway and eureka-->
+		<spring-cloud.version>2020.0.5</spring-cloud.version>
 	</properties>
 
 	<dependencyManagement>
@@ -75,6 +76,13 @@
 				<artifactId>awaitility</artifactId>
 				<version>${awaitility.version}</version>
 				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -148,6 +156,15 @@
 			<groupId>org.ehcache</groupId>
 			<artifactId>ehcache</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
+			<version>3.0.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
 		<!--<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-activemq</artifactId>
@@ -158,11 +175,6 @@
 			<version>5.16.2</version>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-			<version>3.0.2</version>
-		</dependency>-->
-		<!--<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-zipkin</artifactId>
 			<version>2.2.8.RELEASE</version>
@@ -182,11 +194,7 @@
 			<artifactId>logback-core</artifactId>
 			<version>1.2.3</version>
 		</dependency>-->
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-openfeign</artifactId>
-			<version>3.0.2</version>
-		</dependency>
+
 		<!--<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>

@@ -40,8 +40,8 @@ server:
 pet:
   api: @artifactId@
 #Eureka
-eureka:
-  client:
-    service-url:
-      defaultZone: http://netflix:eureka@localhost:8761/eureka
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://netflix:eureka@localhost:8761/eureka
 
