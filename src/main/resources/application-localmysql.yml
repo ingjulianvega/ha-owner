@@ -24,6 +24,10 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
+  #Disable service discovery
+  cloud:
+    discovery:
+      enabled: false
 
 # Enable logging for config troubleshooting
 logging:
