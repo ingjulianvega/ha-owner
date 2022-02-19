@@ -4,3 +4,7 @@ spring:
       discovery:
         enabled: true
         serviceId: ha-config-server
+      fail-fast: true
+      #You need these two to connect to config server and download the configuration
+      username: MyUserName
+      password: MySecretPassword
