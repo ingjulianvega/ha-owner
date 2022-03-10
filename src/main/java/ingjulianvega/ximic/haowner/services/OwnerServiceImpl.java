@@ -47,9 +47,9 @@ public class OwnerServiceImpl implements OwnerService {
     private final OwnerMapper ownerMapper;
     private final OwnerExtendedMapper ownerExtendedMapper;
 
-    @Cacheable(cacheNames = "ownerListCache")
+    @Cacheable(cacheNames = "ownerListCache", condition = "#usingCache == true")
     @Override
-    public OwnerList get() {
+    public OwnerList get(Boolean usingCache) {
         log.debug("get()...");
         return OwnerList
                 .builder()

@@ -8,7 +8,7 @@ import ingjulianvega.ximic.haowner.web.model.PetList;
 import java.util.UUID;
 
 public interface OwnerService {
-    OwnerList get();
+    OwnerList get(Boolean usingCache);
 
     OwnerExtendedDto getById(UUID id);
 

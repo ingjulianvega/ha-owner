@@ -20,8 +20,8 @@ public class OwnerController implements OwnerI {
     private final OwnerService ownerService;
 
     @Override
-    public ResponseEntity<OwnerList> get() {
-        return new ResponseEntity<>(ownerService.get(), HttpStatus.OK);
+    public ResponseEntity<OwnerList> get(Boolean usingCache) {
+        return new ResponseEntity<>(ownerService.get(usingCache), HttpStatus.OK);
     }
 
     @Override
